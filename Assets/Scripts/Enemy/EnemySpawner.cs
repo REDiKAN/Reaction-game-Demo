@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> prefabsEnemy;
+    [SerializeField] private MoneyManager moneyManager;
 
     public void SpawnNewEnemy()
     {
@@ -15,5 +16,9 @@ public class EnemySpawner : MonoBehaviour
         _enemyObj.transform.Rotate(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
-    public void DestroyEnemy(GameObject _obj) => Destroy(_obj);
+    public void DestroyEnemy(GameObject _obj, int _money)
+    {
+        moneyManager.AddMoney(_money);
+        Destroy(_obj);
+    }
 }
