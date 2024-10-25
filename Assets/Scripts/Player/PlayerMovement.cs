@@ -7,11 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedRotate;
 
     [Header("Setting Speed Rotate")]
-    [SerializeField] private bool isIncreaseSpeed;
-    [SerializeField] private float coefficientSpeedChange;
-    [Header("Limits Speed Rotate")]
-    [SerializeField] private float maxSpeedRotateRight;
-    [SerializeField] private float maxSpeedRotateLeft;
+    [SerializeField] private TypeMove typeMove;
 
     private void FixedUpdate()
     {
@@ -21,20 +17,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedChanges()
     {
-
-        if (isIncreaseSpeed)
+        if (typeMove == TypeMove.Left)
         {
-            if (speedRotate < maxSpeedRotateRight)
-            {
-                speedRotate += coefficientSpeedChange * Time.deltaTime;
-            }
+            speedRotate = 2f;
         }
         else
         {
-            if (speedRotate > maxSpeedRotateLeft)
-            {
-                speedRotate -= coefficientSpeedChange * Time.deltaTime;
-            }
+            speedRotate = -2f;
         }
     }
 
@@ -42,4 +31,16 @@ public class PlayerMovement : MonoBehaviour
     {
         gameObject.transform.Rotate(new Vector3(0, 0, speedRotate));
     }
+
+    public void ChangeDirection()
+    {
+        if (typeMove == TypeMove.Right)
+            typeMove = TypeMove.Left;
+        else
+            typeMove = TypeMove.Right;
+    }
+}
+public enum TypeMove
+{
+    Right, Left
 }
